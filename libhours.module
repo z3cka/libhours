@@ -1,5 +1,4 @@
 <?php
-// $Id$
 
 /**
  * @file
@@ -10,12 +9,12 @@
  */
  
 /**
- * Implements hook_help()
+ * Implements hook_help().
  */
-function libhours_help($path, $arg){
+function libhours_help($path, $arg) {
 	$output = '';
 	
-	switch($path){
+	switch($path) {
 		case 'admin/help#libhours':
 			$output = '<p>' . t('Displays the hours for the libraries.') . '</p>';
 			break;
@@ -25,25 +24,25 @@ function libhours_help($path, $arg){
 }
 
 /**
- * Implements hook_init()
+ * Implements hook_init().
  */
-function libhours_init(){
+function libhours_init() {
 	$basepath = drupal_get_path('module','libhours');
 	drupal_add_css($basepath . '/libhours.css');
 	drupal_add_js($basepath . '/libhours.js');
 }
 
 /**
- * Implements hook_perm()
+ * Implements hook_perm().
  */
-function libhours_perm(){
+function libhours_perm() {
 	return array('access content', 'administer library hours');
 }
 
 /**
- * Implements hook_theme()
+ * Implements hook_theme().
  */
-function libhours_theme(){
+function libhours_theme() {
 	return array(
 		'time' => array(
 			'arguments' => array('element' => null)
@@ -56,9 +55,9 @@ function libhours_theme(){
 }
 
 /**
- * Implements hook_menu()
+ * Implements hook_menu().
  */
-function libhours_menu(){
+function libhours_menu() {
 	$items = array();
 	
 	/* PAGE PATHS */
@@ -68,14 +67,14 @@ function libhours_menu(){
 		'title' => t('Library Hours'),
 		'page callback' => 'libhours_redirect',
 		'access arguments' => array('access content'),
-		'file' => 'libhours.pages.inc'
+		'file' => 'libhours.pages.inc',
 	);
 	
 	$items['hours'] = array(
 		'title' => t('Library Hours'),
 		'page callback' => 'libhours_display',
 		'access arguments' => array('access content'),
-		'file' => 'libhours.pages.inc'
+		'file' => 'libhours.pages.inc',
 	);
 	
 	/* API ENDPOINT */
@@ -84,7 +83,7 @@ function libhours_menu(){
 		'title' => t('Process the API call'),
 		'page callback' => 'libhours_api',
 		'access arguments' => array('access content'),
-		'file' => 'libhours.api.inc'
+		'file' => 'libhours.api.inc',
 	);
 	
 	/* This menu will be deprecated */
@@ -92,7 +91,7 @@ function libhours_menu(){
 		'title' => t('Process the API call'),
 		'page callback' => 'libhours_api',
 		'access arguments' => array('access content'),
-		'file' => 'libhours.api.inc'
+		'file' => 'libhours.api.inc',
 	);
 	
 	/* ADMIN PATHS */
@@ -102,14 +101,14 @@ function libhours_menu(){
 		'description' => t('Administer libraries hours'),
 		'page callback' => 'libhours_admin',
 		'access arguments' => array('administer library hours'),
-		'file' => 'libhours.admin.inc'
+		'file' => 'libhours.admin.inc',
 	);
 	
 	$items['admin/content/libhours/location/add'] = array(
 		'title' => t('Add Location'),
 		'page callback' => 'libhours_admin_location_edit',
 		'access arguments' => array('administer library hours'),
-		'file' => 'libhours.admin.inc'
+		'file' => 'libhours.admin.inc',
 	);
 	
 	$items['admin/content/libhours/location/edit'] = array(
@@ -117,7 +116,7 @@ function libhours_menu(){
 		'page callback' => 'libhours_admin_location_edit',
 		'access arguments' => array('administer library hours'),
 		'file' => 'libhours.admin.inc',
-		'type' => MENU_CALLBACK
+		'type' => MENU_CALLBACK,
 	);
 	
 	$items['admin/content/libhours/location/delete'] = array(
@@ -126,7 +125,7 @@ function libhours_menu(){
 		'page arguments' => array('libhours_admin_location_delete_confirm'),
 		'access arguments' => array('administer library hours'),
 		'file' => 'libhours.admin.inc',
-		'type' => MENU_CALLBACK
+		'type' => MENU_CALLBACK,
 	);
 	
 	$items['admin/content/libhours/location/hours'] = array(
@@ -134,7 +133,7 @@ function libhours_menu(){
 		'page callback' => 'libhours_admin_location_hours',
 		'access arguments' => array('administer library hours'),
 		'file' => 'libhours.admin.inc',
-		'type' => MENU_CALLBACK
+		'type' => MENU_CALLBACK,
 	);
 	
 	$items['admin/content/libhours/period/add'] = array(
@@ -142,7 +141,7 @@ function libhours_menu(){
 		'page callback' => 'libhours_admin_period_edit',
 		'access arguments' => array('administer library hours'),
 		'file' => 'libhours.admin.inc',
-		'type' => MENU_CALLBACK 
+		'type' => MENU_CALLBACK,
 	);
 	
 	$items['admin/content/libhours/period/edit'] = array(
@@ -150,7 +149,7 @@ function libhours_menu(){
 		'page callback' => 'libhours_admin_period_edit',
 		'access arguments' => array('administer library hours'),
 		'file' => 'libhours.admin.inc',
-		'type' => MENU_CALLBACK
+		'type' => MENU_CALLBACK,
 	);
 	
 	$items['admin/content/libhours/period/delete'] = array(
@@ -159,7 +158,7 @@ function libhours_menu(){
 		'page arguments' => array('libhours_admin_period_delete_confirm'),
 		'access arguments' => array('administer library hours'),
 		'file' => 'libhours.admin.inc',
-		'type' => MENU_CALLBACK
+		'type' => MENU_CALLBACK,
 	);
 	
 	$items['admin/content/libhours/period/hours'] = array(
@@ -167,7 +166,7 @@ function libhours_menu(){
 		'page callback' => 'libhours_admin_period_hours',
 		'access arguments' => array('administer library hours'),
 		'file' => 'libhours.admin.inc',
-		'type' => MENU_CALLBACK
+		'type' => MENU_CALLBACK,
 	);
 	
 	$items['admin/content/libhours/hours/edit'] = array(
@@ -175,7 +174,7 @@ function libhours_menu(){
 		'page callback' => 'libhours_admin_hours_edit',
 		'access arguments' => array('administer library hours'),
 		'file' => 'libhours.admin.inc',
-		'type' => MENU_CALLBACK
+		'type' => MENU_CALLBACK,
 	);
 	
 	$items['admin/content/libhours/hours/delete'] = array(
@@ -184,7 +183,7 @@ function libhours_menu(){
 		'page arguments' => array('libhours_admin_hours_delete_confirm'),
 		'access arguments' => array('administer library hours'),
 		'file' => 'libhours.admin.inc',
-		'type' => MENU_CALLBACK
+		'type' => MENU_CALLBACK,
 	);
 	
 	$items['admin/content/libhours/exceptions/add'] = array(
@@ -192,7 +191,7 @@ function libhours_menu(){
 		'page callback' => 'libhours_admin_exceptions_edit',
 		'access arguments' => array('administer library hours'),
 		'file' => 'libhours.admin.inc',
-		'type' => MENU_CALLBACK
+		'type' => MENU_CALLBACK,
 	);
 	
 	$items['admin/content/libhours/exceptions/edit'] = array(
@@ -200,7 +199,7 @@ function libhours_menu(){
 		'page callback' => 'libhours_admin_exceptions_edit',
 		'access arguments' => array('administer library hours'),
 		'file' => 'libhours.admin.inc',
-		'type' => MENU_CALLBACK
+		'type' => MENU_CALLBACK,
 	);
 	
 	$items['admin/content/libhours/exceptions/delete'] = array(
@@ -209,52 +208,52 @@ function libhours_menu(){
 		'page arguments' => array('libhours_admin_exceptions_delete_confirm'),
 		'access arguments' => array('administer library hours'),
 		'file' => 'libhours.admin.inc',
-		'type' => MENU_CALLBACK
+		'type' => MENU_CALLBACK,
 	);
 	
 	return $items;
 }
 
 /**
- * Implements hook_block()
+ * Implements hook_block().
  * This is to continue support for the Today's Hours section on info.uh.edu
  */
-function libhours_block($op = 'list', $delta = 0, $edit = array()){
+function libhours_block($op = 'list', $delta = 0, $edit = array()) {
 	$block = array();
-	switch($op){
+	switch($op) {
 		case 'view':
 			$block['subject'] = t("Today's Hours");
 			$today = time();
 			$dow = date('w', $today);
 			
 			$rs = db_query("SELECT e.*, l.name FROM {libhours_exceptions} e INNER JOIN {libhours_locations} l ON l.lid=e.lid WHERE %d >= from_date AND %d <= to_date AND e.lid=%d LIMIT 1", $today, $today, $delta);
-			if(db_affected_rows()){
+			if (db_affected_rows()) {
 				$hours = db_fetch_object($rs);
 			}
-			else{
+			else {
 				$rs = db_query("SELECT h.*, l.name FROM {libhours_hours} h 
 									INNER JOIN {libhours_periods} p ON p.pid=h.pid
 									INNER JOIN {libhours_locations} l ON l.lid=p.lid 
 								WHERE p.lid=%d AND %d >= p.from_date AND %d <= p.to_date  AND SUBSTRING(h.dow, %d, 1) = '1' ORDER BY from_date DESC LIMIT 1", $delta, $today, $today, ($dow+1));
-				if(db_affected_rows()){
+				if (db_affected_rows()) {
 					$hours = db_fetch_object($rs);
 				}
-				else{
-					$hours = false;
+				else {
+					$hours = FALSE;
 				}
 			}
 			
-			if($hours === false){
+			if ($hours === FALSE) {
 				$block['content'] = 'unknown'; 
 			}
-			else{
+			else {
 				$next = null;
 				$prev = null;
-				if($hours->close == 2359){
+				if ($hours->close == 2359) {
 					$prev = array('open' => null, 'close' => null);
 					$next = array('open' => 0, 'close' => 2359);
 				}
-				elseif($hours->open == 0){
+				elseif ($hours->open == 0) {
 					$prev = array('open' => 0, 'close' => 2359);
 					$next = array('open' => null, 'close' => null);
 				}
@@ -268,12 +267,12 @@ function libhours_block($op = 'list', $delta = 0, $edit = array()){
 }
 
 /**
- * Implements hook_elements()
+ * Implements hook_elements().
  */
-function libhours_elements(){
+function libhours_elements() {
 	return array(
 		'time' => array(
-			'#input' => true,
+			'#input' => TRUE,
 			'#process' => array('expand_time'),
 			'#element_validate' => array('time_validate')
 		)
@@ -283,23 +282,23 @@ function libhours_elements(){
 /**
  * process the time element
  */
-function expand_time($element){
+function expand_time($element) {
 	$hours = array();
-	for($i=1;$i<=12;$i++){
+	for ($i=1; $i<=12; $i++) {
 		$hours[$i] = $i;
 	}
 	$minutes = array();
-	for($i=0;$i<60;$i+=5){
+	for ($i=0; $i < 60; $i+=5) {
 		$value = str_pad($i, 2, 0, STR_PAD_LEFT);
 		$minutes[$value] = $value;
 	}
 	$minutes[59] = 59; // need to add in 59 just to specify a closed time of 11:59 pm
 	
-	if(empty($element['#value'])){
+	if (empty($element['#value'])) {
 		$element['#value'] = array('hour' => '-', 'minute' => '-', 'm' => 'am');
 	}
 	
-	$element['#tree'] = true;
+	$element['#tree'] = TRUE;
 	
 	$parents = $element['#parents'];
 	$parents[] = 'hour';
@@ -332,8 +331,8 @@ function expand_time($element){
 /**
  * validates time element
  */
-function time_validate($element){
-	if(trim($element['#value']['hour']) == '-' || trim($element['#value']['minute']) == '-'){
+function time_validate($element) {
+	if (trim($element['#value']['hour']) == '-' || trim($element['#value']['minute']) == '-') {
 		form_error($element, t('Please select a correct hour and minute.'));
 	}
 }
@@ -341,7 +340,7 @@ function time_validate($element){
 /**
  * Implements theme_hook()
  */
-function theme_time($element){
+function theme_time($element) {
 	return theme('form_element', $element, '<div class="container-inline">' . $element['#children'] . '</div>');
 }
 
@@ -350,16 +349,16 @@ function theme_time($element){
  *
  * @see libhours-display.tpl.php
  */
-function template_preprocess_hours_display(&$variables){
+function template_preprocess_hours_display(&$variables) {
 	
-	if(!$variables['lid']) $variables['lid'] = 1;
+	if (!$variables['lid']) $variables['lid'] = 1;
 	$lid = $variables['lid'];
 	
 	$today = time();
 	
-	if(!$variables['pid']){
+	if (!$variables['pid']) {
 		$variables['pid'] = db_result(db_query("SELECT pid FROM {libhours_periods} WHERE %d >= from_date AND %d <= to_date AND lid=%d ORDER BY from_date DESC LIMIT 1", $today, $today, $lid));
-		if(empty($variables['pid'])){
+		if (empty($variables['pid'])) {
 			$variables['pid'] = db_result(db_query("SELECT pid FROM {libhours_periods} WHERE from_date >= %d AND lid=%d ORDER BY from_date ASC LIMIT 1", $today, $lid));
 		}
 	}
@@ -372,10 +371,10 @@ function template_preprocess_hours_display(&$variables){
 	// load up the available locations
 	$variables['locations'] = array();
 	$lrs = db_query("SELECT * FROM {libhours_locations} WHERE parent=0 ORDER BY name ASC");
-	while($row = db_fetch_object($lrs)){
+	while ($row = db_fetch_object($lrs)) {
 		$children = array();
 		$crs = db_query("SELECT * FROM {libhours_locations} WHERE parent=%d ORDER BY name ASC", $row->lid);
-		while($child = db_fetch_object($crs)){
+		while ($child = db_fetch_object($crs)) {
 			$children[] = array('lid' => $child->lid, 'name' => $child->name);
 		}
 		$variables['locations'][] = array('lid' => $row->lid, 'name' => $row->name, 'children' => $children);
@@ -386,17 +385,17 @@ function template_preprocess_hours_display(&$variables){
 	$rs = db_query("SELECT *, s.name FROM {libhours_periods} p 
 						INNER JOIN {libhours_semesters} s ON p.sid = s.sid
 					WHERE lid = %d AND %d <= to_date ORDER BY from_date ASC LIMIT 4", $lid, $today, $today);
-	while($period = db_fetch_object($rs)){
+	while ($period = db_fetch_object($rs)) {
 		$hours = array();
 		$rh = db_query("SELECT * FROM {libhours_hours} WHERE pid=%d ORDER BY dow DESC", $period->pid);
-		while($hour = db_fetch_object($rh)){
-			for($i=0;$i<strlen($hour->dow);$i++){
-				if($hour->dow[$i] == '1'){
+		while ($hour = db_fetch_object($rh)) {
+			for ($i=0; $i < strlen($hour->dow); $i++) {
+				if ($hour->dow[$i] == '1') {
 					$hours[$i] = array('open' => $hour->open, 'close' => $hour->close);
 				}
 			}
 		}
-		for($i=0;$i<count($hours);$i++){
+		for ($i=0; $i < count($hours); $i++) {
 			$previdx = ($i == 0)?(count($hours) - 1):($i - 1);
 			$nextidx = (($i + 1) == count($hours))?0:($i + 1);
 			
@@ -408,18 +407,18 @@ function template_preprocess_hours_display(&$variables){
 		$ers = db_query("SELECT * FROM {libhours_exceptions} WHERE lid=%d AND from_date >= %d AND to_date <= %d AND %d <= to_date ORDER BY from_date ASC", $lid, $period->from_date, $period->to_date, $today);
 		$exceptions = array();
 		// gather together all the exceptions with the same label
-		while($exception = db_fetch_object($ers)){
-			if(date("n/d/Y", $exception->from_date) == date("n/d/Y", $exception->to_date)){
+		while ($exception = db_fetch_object($ers)) {
+			if (date("n/d/Y", $exception->from_date) == date("n/d/Y", $exception->to_date)) {
 				$date = date("l: M j", $exception->from_date);
 			}
-			else{
+			else {
 				$date = date("M j", $exception->from_date) . ' - ' . date("M j", $exception->to_date);
 			}
 			
 			$exceptions[strtoupper($exception->label)][] = $date . ', ' . _libhours_displayhours($exception->open, $exception->close);
 		}
 		// load all the sorted exceptions for displaying  
-		foreach($exceptions as $label => $times){
+		foreach($exceptions as $label => $times) {
 			$vexceptions[] = array('name' => $label, 'times' => $times);
 		}
 			
@@ -431,9 +430,9 @@ function template_preprocess_hours_display(&$variables){
  * returns day of week
  *
  * @param $index the week day numeric representation 0 for Sunday through 6 for Saturday
- * @param $long true to return full text, false to return three letter representation of a day. (default false)
+ * @param $long TRUE to return full text, FALSE to return three letter representation of a day. (default FALSE)
  */
-function _libhours_dow($index, $long = true){
+function _libhours_dow($index, $long = TRUE) {
 	$_DOW[0] = 'Sunday';
 	$_DOW[1] = 'Monday';
 	$_DOW[2] = 'Tuesday';
@@ -450,11 +449,11 @@ function _libhours_dow($index, $long = true){
  *
  * @param $time time given as integer 0 - 2400
  */
-function _libhours_parsetime($time){
-	if($time < 100){
+function _libhours_parsetime($time) {
+	if ($time < 100) {
 		$hour = 0;
 	}
-	else{
+	else {
 		$hour = substr($time, 0, -2);
 	}
 	$minute = substr($time, -2);
@@ -467,7 +466,7 @@ function _libhours_parsetime($time){
  *
  * @param $time time given in the format of g:ia
  */
-function _libhours_splittime($time){
+function _libhours_splittime($time) {
 	$meridiem = substr($time, -2);
 	$time = substr($time, 0, -2);
 	$hm = explode(':', $time);
@@ -480,11 +479,11 @@ function _libhours_splittime($time){
  *
  * @param $dow Day of week binary
  */
-function _libhours_dowstring($dow){
+function _libhours_dowstring($dow) {
 	$str = '';
-	for($i=0;$i<strlen($dow);$i++){
-		if($dow[$i] == '1')
-			$str .= _libhours_dow($i, false) . ' - ';
+	for ($i=0; $i < strlen($dow); $i++) {
+		if ($dow[$i] == '1')
+			$str .= _libhours_dow($i, FALSE) . ' - ';
 	}
 	$str = substr($str, 0, -3);
 
@@ -499,23 +498,23 @@ function _libhours_dowstring($dow){
  * @param $prev Array of the hours from the previous day
  * @param $next Array of the hours for the next day
  */
-function _libhours_displayhours($open, $close, $prev = null, $next = null){
+function _libhours_displayhours($open, $close, $prev = null, $next = null) {
 	$openstr = _libhours_parsetime($open);
 	$closestr = _libhours_parsetime($close);
 	
-	if($open == 0 && $close == 2359){
+	if ($open == 0 && $close == 2359) {
 		$r = 'Open 24 hours';
 	}
-	elseif($open == 0 && $close == 0){
+	elseif ($open == 0 && $close == 0) {
 		$r = 'Closed';
 	}
-	else{
+	else {
 		$r = $openstr . ' - '. $closestr;
-		if($prev && $next){
-			if($next['open'] == 0 && $next['close'] == 2359){
+		if ($prev && $next) {
+			if ($next['open'] == 0 && $next['close'] == 2359) {
 				$r = $openstr . ' - Open';
 			}
-			elseif($prev['open'] == 0 && $prev['close'] == 2359){
+			elseif ($prev['open'] == 0 && $prev['close'] == 2359) {
 				$r = 'Open - ' . $closestr;
 			}
 		}
@@ -523,7 +522,3 @@ function _libhours_displayhours($open, $close, $prev = null, $next = null){
 	
 	return $r;
 }
- 
- 
- 
- 

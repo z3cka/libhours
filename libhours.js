@@ -10,13 +10,13 @@
 libhours = {};
 
 libhours.tab = function(id){
-	$('#libhours-periods-tabs li').removeClass('selected');
-	$('#libhours-periods-tabs #libhours-tab-' + id).addClass('selected');
-	
-	$('#libhours-periods .libhours-view').removeClass('selected');
-	$('#libhours-periods #libhours-period-' + id).addClass('selected');
+    $('#libhours-periods-tabs li').removeClass('selected');
+    $('#libhours-periods-tabs #libhours-tab-' + id).addClass('selected');
+
+    $('#libhours-periods .libhours-view').removeClass('selected');
+    $('#libhours-periods #libhours-period-' + id).addClass('selected');
 }
 
 libhours.location = function(id){
-	 window.location = Drupal.settings.basePath + 'hours/' + id;
+     window.location = Drupal.settings.basePath + 'hours/' + id;
 }

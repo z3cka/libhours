@@ -1,4 +1,3 @@
-// $Id$
 
 Lib Hours 2.x for Drupal 6.x
 ----------------------------
@@ -10,17 +9,18 @@ copyright 2011 University of Houston Libraries (http://info.lib.uh.edu)
 INSTALL
 =======
 
-Installing Lib Hours is like any other Drupal module. Simply place the module directory
-in your sites modules folder and enable it from 'admin/build/modules'.
+Installing Lib Hours is like any other Drupal module. Simply place the module 
+directory in your sites modules folder and enable it from 
+'admin/build/modules'.
 
-Lib Hours will then need to be configured with locations and periods to add hours. Go to
-'admin/content/libhours' page to configure.
+Lib Hours will then need to be configured with locations and periods to add 
+hours. Go to 'admin/content/libhours' page to configure.
 
-All colors and stylings can be changed in the libhours.css file located in the module 
-directory.
+All colors and stylings can be changed in the libhours.css file located in the
+module directory.
 
-Hours page can be accessed at 'hours/' and will default to the first location entered 
-into the system.
+Hours page can be accessed at 'hours/' and will default to the first location 
+entered into the system.
 
 API
 ===
@@ -29,7 +29,8 @@ Lib Hours comes with a REST API to allow integration with other applications.
 
 ENDPOINT: /hours/api
 
-The following paramaters are required and must be used in order to make a successful call.
+The following paramaters are required and must be used in order to make a 
+successful call.
 
 PARAMATER		VALUES
 ~~~~~~~~~		~~~~~~
@@ -52,7 +53,7 @@ callback		Set the callback to return in the results for jsonp compliance.
 EXAMPLES
 --------
 
-Example: Returns a json response listing all library locations and their unique 
+Example: Returns a json response listing all library locations and their unique
 identifiers.
 
 http://example.com/hours/api?format=json&action=locations
@@ -84,8 +85,8 @@ Result:
 	]
 }
 
-Example: Returns hours and hour exceptions for the current period for the given library 
-unique identifier.
+Example: Returns hours and hour exceptions for the current period for the given
+library unique identifier.
 
 http://example.com/hours/api?format=json&action=hours&library=1
 
