@@ -66,10 +66,11 @@ function libhours_admin_location_edit($lid = 0) {
  */
 function libhours_admin_location_form(&$form_state,
   $location = array(
-  'lid' => 0,
-  'name' => '',
-  'description' => '',
-  'parent' => 0,)
+    'lid' => 0,
+    'name' => '',
+    'description' => '',
+    'parent' => 0,
+  )
 ) {
 
   $form['name'] = array(
@@ -468,12 +469,13 @@ function libhours_admin_hours_edit($hid = 0) {
 function libhours_admin_hours_form(&$form_state,
   $pid = 0,
   $hours = array(
-  'hid' => 0,
-  'pid' => 0,
-  'dow' => '0000000',
-  'open' => 0,
-  'close' => 0,
-)) {
+    'hid' => 0,
+    'pid' => 0,
+    'dow' => '0000000',
+    'open' => 0,
+    'close' => 0,
+  )
+) {
 
   if ($hours['hid']) {
     $form['general_hours'] = array(
@@ -491,8 +493,10 @@ function libhours_admin_hours_form(&$form_state,
   $dow = array();
   $dow_values = array();
   for ($i=0; $i < 7; $i++) {
-    $dow[$i+1] = _libhours_dow($i);
-    if ($hours['dow'][$i] == '1') $dow_values[] = $i + 1;
+    $dow[$i + 1] = _libhours_dow($i);
+    if ($hours['dow'][$i] == '1') {
+      $dow_values[] = $i + 1;
+    }
   }
 
   $form['general_hours']['dayofweek'] = array(
@@ -594,8 +598,9 @@ function libhours_admin_hours_form_cancel($form, &$form_state) {
  * @see libhours_admin_hours_form()
  */
 function libhours_admin_hours_form_validate($form, &$form_state) {
-   /* check to make sure these hours are attached to a period. they should be but incase
-     of coder error.
+  /* 
+    Check to make sure these hours are attached to a period. they should be but incase
+    of coder error.
   */
   if (!isset($form_state['values']['pid'])) {
     form_set_error('', t('Internal error occurred. Unable to find pid identifier.'));
@@ -622,11 +627,11 @@ function libhours_admin_hours_form_validate($form, &$form_state) {
   /* ok lets look at the other hours in this period and make sure we don't conflict with anything */
   $rs = db_query("SELECT * FROM {libhours_hours} WHERE pid=%d AND hid != %d", $form_state['values']['pid'], $hid);
   while ($row = db_fetch_object($rs)) {
-      $error_hours = _libhours_dowstring($row->dow) . ' / ' . _libhours_parsetime($row->open) . ' - ' . _libhours_parsetime($row->close);
+    $error_hours = _libhours_dowstring($row->dow) . ' / ' . _libhours_parsetime($row->open) . ' - ' . _libhours_parsetime($row->close);
 
     for ($i=0; $i < drupal_strlen($row->dow); $i++) {
       if ($row->dow[$i] == '1' && $dow[$i] == '1') {
-        $close_check = ($row->close < $row->open)?$row->close+2400:$row->close;
+        $close_check = ($row->close < $row->open) ? $row->close + 2400 : $row->close;
         $error = FALSE;
 
         /* time to check the hours for any conflicts */
@@ -741,16 +746,17 @@ function libhours_admin_exceptions_edit($lid = 0, $eid = 0) {
 function libhours_admin_exceptions_form(&$form_state, 
   $lid = 0, 
   $exception = array(
-  'eid' => 0,
-  'lid' => 0,
-  'tid' => 0,
-  'label' => '',
-  'from_date' => 0,
-  'to_date' => 0,
-  'open' => 0,
-  'close' => 0,
-)) {
- 
+    'eid' => 0,
+    'lid' => 0,
+    'tid' => 0,
+    'label' => '',
+    'from_date' => 0,
+    'to_date' => 0,
+    'open' => 0,
+    'close' => 0,
+  )
+) {
+
   $form['lid'] = array(
     '#type' => 'value',
     '#value' => $lid,
@@ -784,10 +790,10 @@ function libhours_admin_exceptions_form(&$form_state,
   );
 
   if ($exception['from_date'] == 0) {
-   $exception['from_date'] = time(); 
+    $exception['from_date'] = time();
   }
   if ($exception['to_date'] == 0) {
-   $exception['to_date'] = time(); 
+    $exception['to_date'] = time();
   }
 
   $form['daterange']['from_date'] = array(
@@ -841,7 +847,7 @@ function libhours_admin_exceptions_form(&$form_state,
     '#required' => TRUE,
     '#default_value' => array(
       'hour' => $close_arry[0],
-      'minute' => $close_arry[1], 
+      'minute' => $close_arry[1],
       'm' => $close_arry[2],
     ),
   );
@@ -872,7 +878,7 @@ function libhours_admin_exceptions_form(&$form_state,
  * @see libhours_admin_exceptions_form_submit()
  */
 function libhours_admin_exceptions_form_validate($form, &$form_state) {
-  $eid = (isset($form_state['values']['eid']))?$form_state['values']['eid']:0;
+  $eid = (isset($form_state['values']['eid'])) ? $form_state['values']['eid'] : 0;
 
   $form_state['values']['from_date'] = mktime(0, 0, 0,
                                 $form_state['values']['from_date']['month'],
@@ -899,10 +905,12 @@ function libhours_admin_exceptions_form_validate($form, &$form_state) {
       $error = FALSE;
 
       /* time to check the hours for any conflicts */
-      if ($row->open == 0 && $row->close == 0) { /* location closed */
+      if ($row->open == 0 && $row->close == 0) {
+        /* location closed */
         $error = TRUE;
       }
-      elseif ($row->open == 0 && $row->close == 2359) { /* location open 24hrs */
+      elseif ($row->open == 0 && $row->close == 2359) {
+        /* location open 24hrs */
         $error = TRUE;
       }
       elseif ($form_state['values']['open'] > $row->open || $form_state['values']['close'] > $row->open) {
@@ -916,7 +924,7 @@ function libhours_admin_exceptions_form_validate($form, &$form_state) {
         }
       }
 
-      $excstr = $row->label . ' From: ' . date("n/j/Y", $row->from_date) . ' To: ' . date("n/j/Y", $row->to_date) . ' @ ' . _libhours_displayhours($row->open, $row->close); 
+      $excstr = $row->label . ' From: ' . date("n/j/Y", $row->from_date) . ' To: ' . date("n/j/Y", $row->to_date) . ' @ ' . _libhours_displayhours($row->open, $row->close);
 
       if ($error) {
         form_set_error('', t('Sorry but the exception conflicts with other exception: %exc', array('%exc' => $excstr)));
@@ -929,9 +937,18 @@ function libhours_admin_exceptions_form_validate($form, &$form_state) {
  * do save of exceptions form
  */
 function libhours_admin_exceptions_form_submit($form, &$form_state) {
-  $eid = (isset($form_state['values']['eid']))?$form_state['values']['eid']:0;
+  $eid = (isset($form_state['values']['eid'])) ? $form_state['values']['eid'] : 0;
 
-  $data = array($form_state['values']['lid'], $form_state['values']['tid'], $form_state['values']['label'], $form_state['values']['from_date'], $form_state['values']['to_date'], $form_state['values']['open'], $form_state['values']['close'], $eid);
+  $data = array(
+    $form_state['values']['lid'],
+    $form_state['values']['tid'],
+    $form_state['values']['label'],
+    $form_state['values']['from_date'],
+    $form_state['values']['to_date'],
+    $form_state['values']['open'],
+    $form_state['values']['close'],
+    $eid,
+  );
 
   if ($eid) {
     db_query("UPDATE {libhours_exceptions} SET lid=%d, tid=%d, label='%s', from_date=%d, to_date=%d, open=%d, close=%d WHERE eid=%d", $data);
