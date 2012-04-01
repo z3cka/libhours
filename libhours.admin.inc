@@ -492,7 +492,7 @@ function libhours_admin_hours_form(&$form_state,
 
   $dow = array();
   $dow_values = array();
-  for ($i=0; $i < 7; $i++) {
+  for ($i = 0; $i < 7; $i++) {
     $dow[$i + 1] = _libhours_dow($i);
     if ($hours['dow'][$i] == '1') {
       $dow_values[] = $i + 1;
@@ -598,9 +598,9 @@ function libhours_admin_hours_form_cancel($form, &$form_state) {
  * @see libhours_admin_hours_form()
  */
 function libhours_admin_hours_form_validate($form, &$form_state) {
-  /* 
-    Check to make sure these hours are attached to a period. they should be but incase
-    of coder error.
+  /*
+    Check to make sure these hours are attached to a period. they should be but
+    incase of coder error.
   */
   if (!isset($form_state['values']['pid'])) {
     form_set_error('', t('Internal error occurred. Unable to find pid identifier.'));
@@ -610,7 +610,7 @@ function libhours_admin_hours_form_validate($form, &$form_state) {
 
   /* sort out the dow binary */
   $dow = '';
-  for ($i=1; $i <= 7; $i++) {
+  for ($i = 1; $i <= 7; $i++) {
     $dow .= ($form_state['values']['dayofweek'][$i] != 0) ? '1' : '0';
   }
   if ($dow == '0000000') {
@@ -629,7 +629,7 @@ function libhours_admin_hours_form_validate($form, &$form_state) {
   while ($row = db_fetch_object($rs)) {
     $error_hours = _libhours_dowstring($row->dow) . ' / ' . _libhours_parsetime($row->open) . ' - ' . _libhours_parsetime($row->close);
 
-    for ($i=0; $i < drupal_strlen($row->dow); $i++) {
+    for ($i = 0; $i < drupal_strlen($row->dow); $i++) {
       if ($row->dow[$i] == '1' && $dow[$i] == '1') {
         $close_check = ($row->close < $row->open) ? $row->close + 2400 : $row->close;
         $error = FALSE;
@@ -666,7 +666,7 @@ function libhours_admin_hours_form_validate($form, &$form_state) {
  * save the hours
  */
 function libhours_admin_hours_form_submit($form, &$form_state) {
-  $hid = (isset($form_state['values']['hid'])?$form_state['values']['hid']:0);
+  $hid = (isset($form_state['values']['hid']) ? $form_state['values']['hid'] : 0);
 
   $data = array(
     $form_state['values']['pid'],
@@ -743,8 +743,8 @@ function libhours_admin_exceptions_edit($lid = 0, $eid = 0) {
  * @see libhours_admin_exceptions_form_validate()
  * @see libhours_admin_exceptions_form_submit()
  */
-function libhours_admin_exceptions_form(&$form_state, 
-  $lid = 0, 
+function libhours_admin_exceptions_form(&$form_state,
+  $lid = 0,
   $exception = array(
     'eid' => 0,
     'lid' => 0,
@@ -860,7 +860,7 @@ function libhours_admin_exceptions_form(&$form_state,
     $form['submit'] = array(
       '#type' => 'submit',
       '#value' => t('Save Exception'),
-    );  
+    );
   }
   else {
     $form['submit'] = array(
