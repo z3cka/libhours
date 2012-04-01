@@ -28,12 +28,11 @@ function libhours_admin() {
     /* display any sub-locations to this location */
     $srs = db_query("SELECT lid, name FROM {libhours_locations} WHERE parent=%d ORDER BY name", $row->lid);
     while ($subs = db_fetch_object($srs)) {
-    $rows[] = array('&nbsp;&nbsp; - ' . $subs->name, implode(' | ', array(
+      $rows[] = array('&nbsp;&nbsp; - ' . $subs->name, implode(' | ', array(
             l(t('Edit Hours'), 'admin/content/libhours/location/hours/' . $subs->lid),
             l(t('Edit Location'), 'admin/content/libhours/location/edit/' . $subs->lid),
             l(t('Delete Location'), 'admin/content/libhours/location/delete/' . $subs->lid),
             )));
-
     }
   }
 
@@ -66,10 +65,12 @@ function libhours_admin_location_edit($lid = 0) {
  * @see libhours_admin_location_form_submit()
  */
 function libhours_admin_location_form(&$form_state,
-  $location = array('lid' => 0, 
-                    'name' => '', 
-                    'description' => '', 
-                    'parent' => 0)) {
+  $location = array(
+    'lid' => 0,
+    'name' => '',
+    'description' => '',
+    'parent' => 0,
+  )) {
     
   $form['name'] = array(
     '#type' => 'textfield',
@@ -93,12 +94,12 @@ function libhours_admin_location_form(&$form_state,
         $locs[$row->lid] = $row->name;
   }
 
-    $form['parent'] = array(
-      '#type' => 'select',
-      '#title' => 'Parent Location',
-      '#description' => t('If this location is a sub-location please select the location it belongs to.'),
-      '#options' => $locs,
-      '#default_value' => $location['parent'],
+  $form['parent'] = array(
+    '#type' => 'select',
+    '#title' => 'Parent Location',
+    '#description' => t('If this location is a sub-location please select the location it belongs to.'),
+    '#options' => $locs,
+    '#default_value' => $location['parent'],
   );
 
   if ($location['lid']) {
@@ -128,9 +129,12 @@ function libhours_admin_location_form(&$form_state,
 function libhours_admin_location_form_submit($form, &$form_state) {
    $lid = isset($form_state['values']['lid']) ? $form_state['values']['lid'] : 0;
 
-  $data = array($form_state['values']['name'],
-                $form_state['values']['description'], 
-                $form_state['values']['parent'], $lid);
+  $data = array(
+    $form_state['values']['name'],
+    $form_state['values']['description'],
+    $form_state['values']['parent'],
+    $lid,
+  );
 
   if ($lid) {
         db_query("UPDATE {libhours_locations} SET name='%s', description='%s', parent=%d WHERE lid=%d", $data);
@@ -138,7 +142,7 @@ function libhours_admin_location_form_submit($form, &$form_state) {
   else {
         db_query("INSERT INTO {libhours_locations} (name, description, parent) VALUES ('%s', '%s', %d)", $data);
   }
-    
+
   $form_state['redirect'] = 'admin/content/libhours';
 }
 
@@ -149,7 +153,7 @@ function libhours_admin_location_form_submit($form, &$form_state) {
  */
 function libhours_admin_location_delete_confirm(&$form_state, $lid = 0) {
   $location = db_fetch_object(db_query("SELECT * FROM {libhours_locations} WHERE lid=%d", $lid));
-  
+
   $form['lid'] = array(
     '#type' => 'value',
     '#value' => $lid,
@@ -170,10 +174,10 @@ function libhours_admin_location_delete_confirm_submit($form, &$form_state) {
     while ($row = db_fetch_object($rs)) {
       db_query("UPDATE {libhours_locations} SET parent=%d WHERE lid=%d", 0, $row->lid);
     }
-      
+
     db_query("DELETE FROM {libhours_locations} WHERE lid=%d", $form_state['values']['lid']);
     db_query("DELETE FROM {libhours_exceptions} WHERE lid=%d", $form_state['values']['lid']);
-      
+
     $form_state['redirect'] = 'admin/content/libhours';
   }
 }
@@ -184,7 +188,8 @@ function libhours_admin_location_delete_confirm_submit($form, &$form_state) {
 function libhours_admin_location_hours($lid = 0) {
   $location = db_fetch_object(db_query("SELECT * FROM {libhours_locations} WHERE lid=%d", $lid));
 
-  drupal_set_title(t('Location Information: ' . $location->name));
+  $title = 'Location Information: ' . $location->name;
+  drupal_set_title(t($title));
 
   $output .= '<h2>Periods</h2>';
 
@@ -196,9 +201,9 @@ function libhours_admin_location_hours($lid = 0) {
     $to_date = date("n/j/Y", $row->to_date);
       
     $rows[] = array($row->name, $from_date . ' - ' . $to_date, implode(' | ', array(
-      l('View Hours', 'admin/content/libhours/period/hours/' . $row->pid),
-      l('Edit Date Range', 'admin/content/libhours/period/edit/' . $lid . '/' . $row->pid),
-      l('Delete Period', 'admin/content/libhours/period/delete/' . $row->pid),
+      l(t('View Hours'), 'admin/content/libhours/period/hours/' . $row->pid),
+      l(t('Edit Date Range'), 'admin/content/libhours/period/edit/' . $lid . '/' . $row->pid),
+      l(t('Delete Period'), 'admin/content/libhours/period/delete/' . $row->pid),
     ))); 
   }
 
@@ -210,10 +215,10 @@ function libhours_admin_location_hours($lid = 0) {
   $rs = db_query("SELECT e.*, t.name FROM {libhours_exceptions} e INNER JOIN {libhours_type} t ON t.tid=e.tid WHERE e.lid=%d ORDER BY e.from_date", $lid);
   while ($row = db_fetch_object($rs)) {
     $hdisplay = _libhours_displayhours($row->open, $row->close);
-      
+
     $from_date = date("n/j/Y", $row->from_date);
     $to_date = date("n/j/Y", $row->to_date);
-      
+
     $rows[] = array($row->label, $row->name, $from_date . ' - ' . $to_date, $hdisplay, implode(' | ', array(
       l(t('Edit'), 'admin/content/libhours/exceptions/edit/' . $lid . '/' . $row->eid),
       l(t('Delete'), 'admin/content/libhours/exceptions/delete/' . $row->eid),
@@ -237,7 +242,13 @@ function libhours_admin_period_edit($lid = 0, $pid = 0) {
     $output = drupal_get_form('libhours_admin_period_form', $period);
   }
   else {
-    $period = array('pid' => 0, 'lid' => $lid, 'sid' => 0, 'from_date' => time(), 'to_date' => time());
+    $period = array(
+      'pid' => 0,
+      'lid' => $lid,
+      'sid' => 0,
+      'from_date' => time(),
+      'to_date' => time(),
+    );
     $output = drupal_get_form('libhours_admin_period_form', $period);
   }
 
@@ -252,7 +263,7 @@ function libhours_admin_period_edit($lid = 0, $pid = 0) {
 function libhours_admin_period_form(&$form_state, $period) {
   $form['lid'] = array(
     '#type' => 'value',
-    '#value' => $period['lid']
+    '#value' => $period['lid'],
   );
 
   $rs = db_query("SELECT * FROM {libhours_semesters} WHERE TRUE ORDER BY name");
@@ -278,17 +289,21 @@ function libhours_admin_period_form(&$form_state, $period) {
   $form['daterange']['from_date'] = array(
     '#type' => 'date',
     '#title' => t('From'),
-    '#default_value' => array('year'  => date('Y', $period['from_date']), 
-                              'month' => date('n', $period['from_date']), 
-                              'day'   => date('j', $period['from_date'])),
+    '#default_value' => array(
+      'year'  => date('Y', $period['from_date']),
+      'month' => date('n', $period['from_date']),
+      'day'   => date('j', $period['from_date']),
+    ),
   );
 
   $form['daterange']['to_date'] = array(
     '#type' => 'date',
     '#title' => t('To'),
-    '#default_value' => array('year'  => date('Y', $period['to_date']), 
-                              'month' => date('n', $period['to_date']), 
-                              'day'   => date('j', $period['to_date'])),
+    '#default_value' => array(
+      'year'  => date('Y', $period['to_date']),
+      'month' => date('n', $period['to_date']),
+      'day'   => date('j', $period['to_date']),
+    ),
   );
 
   if ($period['pid']) {
@@ -333,9 +348,15 @@ function libhours_admin_period_form_validate($form, &$form_state) {
  * Save Periods
  */
 function libhours_admin_period_form_submit($form, &$form_state) {
-  $pid = isset($form_state['values']['pid'])?$form_state['values']['pid']:0;
+  $pid = isset($form_state['values']['pid']) ? $form_state['values']['pid'] : 0;
 
-  $data = array($form_state['values']['lid'], $form_state['values']['sid'], $form_state['values']['from_date'], $form_state['values']['to_date'], $pid);
+  $data = array(
+    $form_state['values']['lid'],
+    $form_state['values']['sid'],
+    $form_state['values']['from_date'],
+    $form_state['values']['to_date'],
+    $pid,
+  );
   if ($pid) {
     db_query("UPDATE {libhours_periods} SET lid=%d, sid=%d, from_date=%d, to_date=%d WHERE pid=%d", $data);
   }
@@ -442,7 +463,16 @@ function libhours_admin_hours_edit($hid = 0) {
  * @see libhours_admin_hours_form_validate()
  * @see libhours_admin_hours_form_submit()
  */
-function libhours_admin_hours_form(&$form_state, $pid = 0, $hours = array('hid' => 0, 'pid' => 0, 'dow' => '0000000', 'open' => 0, 'close' => 0)) {
+function libhours_admin_hours_form(&$form_state,
+  $pid = 0,
+  $hours = array(
+    'hid' => 0,
+    'pid' => 0,
+    'dow' => '0000000',
+    'open' => 0,
+    'close' => 0,
+  )) {
+  
   if ($hours['hid']) {
     $form['general_hours'] = array(
       '#type' => 'fieldset',
@@ -482,9 +512,11 @@ function libhours_admin_hours_form(&$form_state, $pid = 0, $hours = array('hid' 
     '#title' => t('Open'),
     '#description' => t('Time the location opens. To close a location set Open and Close to 12:00am. To open 24hrs set Open to 12:00am and Close to 11:59pm'),
     '#required' => TRUE,
-    '#default_value' => array('hour' => $open_arry[0], 
-                              'minute' => $open_arry[1], 
-                              'm' => $open_arry[2]),
+    '#default_value' => array(
+      'hour' => $open_arry[0],
+      'minute' => $open_arry[1],
+      'm' => $open_arry[2],
+    ),
   );
 
   $form['general_hours']['close'] = array(
@@ -492,9 +524,11 @@ function libhours_admin_hours_form(&$form_state, $pid = 0, $hours = array('hid' 
     '#title' => t('Close'),
     '#description' => t('Time the location closes. To close a location set Open and Close to 12:00am. To open 24hrs set Open to 12:00am and Close to 11:59pm'),
     '#required' => TRUE,
-    '#default_value' => array('hour' => $close_arry[0], 
-                              'minute' => $close_arry[1], 
-                              'm' => $close_arry[2])
+    '#default_value' => array(
+      'hour' => $close_arry[0],
+      'minute' => $close_arry[1],
+      'm' => $close_arry[2],
+    ),
   );
 
   if ($pid) {
@@ -587,7 +621,7 @@ function libhours_admin_hours_form_validate($form, &$form_state) {
   while ($row = db_fetch_object($rs)) {
       $error_hours = _libhours_dowstring($row->dow) . ' / ' . _libhours_parsetime($row->open) . ' - ' . _libhours_parsetime($row->close);
 
-      for ($i=0; $i < strlen($row->dow); $i++) {
+      for ($i=0; $i < drupal_strlen($row->dow); $i++) {
         if ($row->dow[$i] == '1' && $dow[$i] == '1') {
           $close_check = ($row->close < $row->open)?$row->close+2400:$row->close;
           $error = FALSE;
@@ -693,14 +727,16 @@ function libhours_admin_exceptions_edit($lid = 0, $eid = 0) {
  */
 function libhours_admin_exceptions_form(&$form_state, 
   $lid = 0, 
-  $exception = array('eid' => 0, 
-                     'lid' => 0, 
-                     'tid' => 0, 
-                     'label' => '', 
-                     'from_date' => 0, 
-                     'to_date' => 0, 
-                     'open' => 0, 
-                     'close' => 0)) {
+  $exception = array(
+    'eid' => 0,
+    'lid' => 0,
+    'tid' => 0,
+    'label' => '',
+    'from_date' => 0,
+    'to_date' => 0,
+    'open' => 0,
+    'close' => 0,
+  )) {
  
   $form['lid'] = array(
     '#type' => 'value',
@@ -740,17 +776,21 @@ function libhours_admin_exceptions_form(&$form_state,
   $form['daterange']['from_date'] = array(
     '#type' => 'date',
     '#title' => t('From'),
-    '#default_value' => array('year' => date('Y', $exception['from_date']), 
-                              'month' => date('n', $exception['from_date']), 
-                              'day' => date('j', $exception['from_date'])),
+    '#default_value' => array(
+      'year' => date('Y', $exception['from_date']),
+      'month' => date('n', $exception['from_date']),
+      'day' => date('j', $exception['from_date']),
+    ),
   );
 
   $form['daterange']['to_date'] = array(
     '#type' => 'date',
     '#title' => t('To'),
-    '#default_value' => array('year' => date('Y', $exception['to_date']), 
-                              'month' => date('n', $exception['to_date']), 
-                              'day' => date('j', $exception['to_date'])),
+    '#default_value' => array(
+      'year' => date('Y', $exception['to_date']),
+      'month' => date('n', $exception['to_date']),
+      'day' => date('j', $exception['to_date']),
+    ),
   );
 
   $open = _libhours_parsetime($exception['open']);
@@ -770,9 +810,11 @@ function libhours_admin_exceptions_form(&$form_state,
     '#title' => t('Open'),
     '#description' => t('Time the location opens. For closed location set Open and Close to 12:00am. To open 24hrs set Open to 12:00am and Close to 11:59pm'),
     '#required' => TRUE,
-    '#default_value' => array('hour' => $open_arry[0], 
-                              'minute' => $open_arry[1], 
-                              'm' => $open_arry[2]),
+    '#default_value' => array(
+      'hour' => $open_arry[0],
+      'minute' => $open_arry[1],
+      'm' => $open_arry[2],
+    ),
   );
 
   $form['general_hours']['close'] = array(
@@ -780,9 +822,11 @@ function libhours_admin_exceptions_form(&$form_state,
     '#title' => t('Close'),
     '#description' => t('Time the location closes. For closed location set Open and Close to 12:00am. To open 24hrs set Open to 12:00am and Close to 11:59pm'),
     '#required' => TRUE,
-    '#default_value' => array('hour' => $close_arry[0], 
-                              'minute' => $close_arry[1], 
-                              'm' => $close_arry[2]),
+    '#default_value' => array(
+      'hour' => $close_arry[0],
+      'minute' => $close_arry[1], 
+      'm' => $close_arry[2],
+    ),
   );
 
   if ($exception['eid']) {
