@@ -11,10 +11,10 @@
 /**
  * Display the hours page for a giving location
  *
- * @param $lid
- *    Location unique identifier
- * @param $pid
- *    Period unique identifier
+ * @param int $lid
+ *   Location unique identifier
+ * @param int $pid
+ *   Period unique identifier
  */
 function libhours_display($lid = 0, $pid = 0) {
     global $conf;
