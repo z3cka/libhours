@@ -24,13 +24,13 @@ function libhours_api() {
  * Process the API call
  *
  * @param $format
- *    The return format to use
+ *   The return format to use
  * @param $action
- *    The action being done to return the results
+ *   The action being done to return the results
  * @param $library
- *    The unique identification id for the library location
+ *   The unique identification id for the library location
  * @param $callback
- *    The callback function used in JSONP
+ *   The callback function used in JSONP
  */
 function libhours_api_process($format = '', $action = '', $library = 0, $callback = '') {
   global $conf;
@@ -84,21 +84,21 @@ function libhours_api_process($format = '', $action = '', $library = 0, $callbac
 
     case 'open':
     case 'opennow':
-        $locations = _libhours_api_getopennow();
+      $locations = _libhours_api_getopennow();
 
-        $return = array('status' => 'ok', 'locations' => $locations);
-        break;
+      $return = array('status' => 'ok', 'locations' => $locations);
+      break;
 
     default:
-        libhours_api_error($format, 'action not supported');
-        break;
+      libhours_api_error($format, 'action not supported');
+      break;
   }
 
   $output = '';
   switch ($format) {
     case 'json':
       $output = json_encode($return);
-      $output = (empty($callback)?$output:($callback . '(' . $output . ')'));
+      $output = (empty($callback) ? $output : ($callback . '(' . $output . ')'));
       drupal_set_header('Content-Type: application/json');
       break;
 
@@ -113,16 +113,16 @@ function libhours_api_process($format = '', $action = '', $library = 0, $callbac
 /**
  * Process any error messages
  *
- * @param $format 
- *    The format to return the error
- * @param $errormsg 
- *    The error message
+ * @param $format
+ *   The format to return the error
+ * @param $errormsg
+ *   The error message
  */
 function libhours_api_error(
   $format = 'html',
   $errormsg = 'Unknown error occurred.'
 ) {
-    
+
   switch ($format) {
     case 'json':
       $return['status'] = $errormsg;
@@ -144,9 +144,9 @@ function libhours_api_error(
  * Returns the standard hours for a location
  *
  * @param $lid
- *    Location unique identifier
+ *   Location unique identifier
  * @param $pid
- *    Period unique identifier
+ *   Period unique identifier
  */
 function _libhours_api_gethours($lid = 0, $pid = 0) {
   $rh = db_query("SELECT * FROM {libhours_hours} WHERE pid=%d ORDER BY dow DESC", $pid);
@@ -163,11 +163,11 @@ function _libhours_api_gethours($lid = 0, $pid = 0) {
     $nextidx = (($i + 1) == count($hours)) ? 0 : ($i + 1);
 
     $return[] = array(
-      'dayofweek' => _libhours_dow($i), 
+      'dayofweek' => _libhours_dow($i),
       'hour' => _libhours_displayhours(
         $hours[$i]['open'], $hours[$i]['close'],
         $hours[$previdx],
-        $hours[$nextidx])
+        $hours[$nextidx]),
     );
   }
 
@@ -176,15 +176,15 @@ function _libhours_api_gethours($lid = 0, $pid = 0) {
 
 /**
  * Gets the exceptions
- * 
+ *
  * @param $lid
- *    Location unique identifier
+ *   Location unique identifier
  * @param $pid
- *    Period unique identifier
- * @param $from_date int
- *    Period from date
- * @param $to_date int
- *    Period to date
+ *   Period unique identifier
+ * @param $from_date
+ *   Period from date
+ * @param $to_date
+ *   Period to date
  */
 function _libhours_api_getexceptions(
   $lid = 0,
@@ -240,7 +240,7 @@ function _libhours_api_getopennow() {
     }
     $crs = db_query($query . " AND parent=%d ORDER BY location", ($dow + 1), $today, $today, $row->id);
     while ($child = db_fetch_object($crs)) {
-      $checktime = ($child->close < $child->open)?($child->close + 2400):$child->close;
+      $checktime = ($child->close < $child->open) ? ($child->close + 2400) : $child->close;
       if ($time >= $child->open && $time < $checktime) {
         $return[$child->id] = array(
           'id' => $child->id,
