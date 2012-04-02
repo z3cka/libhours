@@ -23,13 +23,13 @@ function libhours_api() {
 /**
  * Process the API call
  *
- * @param $format
+ * @param string $format
  *   The return format to use
- * @param $action
+ * @param string $action
  *   The action being done to return the results
- * @param $library
+ * @param int $library
  *   The unique identification id for the library location
- * @param $callback
+ * @param string $callback
  *   The callback function used in JSONP
  */
 function libhours_api_process($format = '', $action = '', $library = 0, $callback = '') {
@@ -53,7 +53,7 @@ function libhours_api_process($format = '', $action = '', $library = 0, $callbac
         while ($child = db_fetch_object($srs)) {
             $locations[] = array('id' => $child->lid, 'location' => ' -- ' . $child->name);
         }
-      }   
+      }
       $return = array('status' => 'ok', 'locations' => $locations);
       break;
 
@@ -113,9 +113,9 @@ function libhours_api_process($format = '', $action = '', $library = 0, $callbac
 /**
  * Process any error messages
  *
- * @param $format
+ * @param string $format
  *   The format to return the error
- * @param $errormsg
+ * @param string $errormsg
  *   The error message
  */
 function libhours_api_error(
@@ -143,9 +143,9 @@ function libhours_api_error(
 /**
  * Returns the standard hours for a location
  *
- * @param $lid
+ * @param int $lid
  *   Location unique identifier
- * @param $pid
+ * @param int $pid
  *   Period unique identifier
  */
 function _libhours_api_gethours($lid = 0, $pid = 0) {
@@ -177,13 +177,13 @@ function _libhours_api_gethours($lid = 0, $pid = 0) {
 /**
  * Gets the exceptions
  *
- * @param $lid
+ * @param int $lid
  *   Location unique identifier
- * @param $pid
+ * @param int $pid
  *   Period unique identifier
- * @param $from_date
+ * @param int $from_date
  *   Period from date
- * @param $to_date
+ * @param int $to_date
  *   Period to date
  */
 function _libhours_api_getexceptions(
@@ -206,7 +206,7 @@ function _libhours_api_getexceptions(
     }
 
     $hours[] = array(
-      'date' => $date, 
+      'date' => $date,
       'hour' => _libhours_displayhours($exception->open, $exception->close),
     );
   }
