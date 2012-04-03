@@ -15,8 +15,9 @@ function libhours_install() {
   drupal_install_schema('libhours');
 
   /* pre-populate the semesters and type tables.
-     need to check if the table already has something in there to avoid overwrites or duplicates
-     that can happen when enabling/disabling the module.
+     need to check if the table already has something in there to avoid
+     overwrites or duplicates that can happen when enabling/disabling the
+     module.
   */
   if (!db_resuldb_query("SELECT COUNT(*) FROM {libhours_semesters} WHERE TRUE"))) {
     db_query("INSERT INTO {libhours_semesters} (name) VALUES ('%s')", 'Fall');
@@ -49,7 +50,7 @@ function libhours_schema() {
   $schema['libhours_locations'] = array(
     'description' => 'Library Locations',
     'fields' => array(
-        'lid' => array(
+      'lid' => array(
         'description' => 'unique identifier for locations',
         'type' => 'serial',
         'not null' => TRUE,
@@ -105,7 +106,7 @@ function libhours_schema() {
         'not null' => TRUE,
         'unsigned' => TRUE),
     ),
-    'primary key' => array('pid'),     
+    'primary key' => array('pid'),
   );
 
   $schema['libhours_semesters'] = array(
