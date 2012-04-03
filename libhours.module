@@ -45,11 +45,11 @@ function libhours_perm() {
 function libhours_theme() {
   return array(
     'time' => array(
-      'arguments' => array('element' => NULL)
+      'arguments' => array('element' => NULL),
     ),
     'hours_display' => array(
       'arguments' => array('lid' => 0, 'pid' => 0),
-      'template' => 'libhours-display'
+      'template' => 'libhours-display',
     ),
   );
 }
@@ -234,7 +234,7 @@ function libhours_block($op = 'list', $delta = 0, $edit = array()) {
         $rs = db_query("SELECT h.*, l.name FROM {libhours_hours} h 
                             INNER JOIN {libhours_periods} p ON p.pid=h.pid
                             INNER JOIN {libhours_locations} l ON l.lid=p.lid 
-                        WHERE p.lid=%d AND %d >= p.from_date AND %d <= p.to_date  AND SUBSTRING(h.dow, %d, 1) = '1' ORDER BY from_date DESC LIMIT 1", $delta, $today, $today, ($dow+1));
+                        WHERE p.lid=%d AND %d >= p.from_date AND %d <= p.to_date  AND SUBSTRING(h.dow, %d, 1) = '1' ORDER BY from_date DESC LIMIT 1", $delta, $today, $today, ($dow + 1));
         if (db_affected_rows()) {
           $hours = db_fetch_object($rs);
         }
@@ -244,7 +244,7 @@ function libhours_block($op = 'list', $delta = 0, $edit = array()) {
       }
 
       if ($hours === FALSE) {
-        $block['content'] = 'unknown'; 
+        $block['content'] = 'unknown';
       }
       else {
         $next = NULL;
@@ -275,7 +275,7 @@ function libhours_elements() {
       '#input' => TRUE,
       '#process' => array('libhours_expand_time'),
       '#element_validate' => array('libhours_time_validate'),
-    )
+    ),
   );
 }
 
@@ -353,7 +353,7 @@ function theme_time($element) {
 function template_preprocess_hours_display(&$variables) {
 
   if (!$variables['lid']) {
-   $variables['lid'] = 1; 
+    $variables['lid'] = 1;
   }
   $lid = $variables['lid'];
 
@@ -396,7 +396,7 @@ function template_preprocess_hours_display(&$variables) {
     $hours = array();
     $rh = db_query("SELECT * FROM {libhours_hours} WHERE pid=%d ORDER BY dow DESC", $period->pid);
     while ($hour = db_fetch_object($rh)) {
-      for ($i=0; $i < strlen($hour->dow); $i++) {
+      for ($i = 0; $i < strlen($hour->dow); $i++) {
         if ($hour->dow[$i] == '1') {
           $hours[$i] = array('open' => $hour->open, 'close' => $hour->close);
         }
@@ -437,15 +437,15 @@ function template_preprocess_hours_display(&$variables) {
       'hours' => $display_hours,
       'exceptions' => $vexceptions,
     );
-  }   
+  }
 }
 
 /**
  * returns day of week
  *
- * @param int $index 
+ * @param int $index
  *   The week day numeric representation 0 for Sunday through 6 for Saturday
- * @param bool $long 
+ * @param bool $long
  *   TRUE to return full text, FALSE to return three letter representation of
  *   a day. (default FALSE)
  */
@@ -497,7 +497,7 @@ function _libhours_splittime($time) {
  * Converts day of week binary to day of week string
  *
  * @param string $dow
- *    Day of week binary
+ *   Day of week binary
  */
 function _libhours_dowstring($dow) {
   $str = '';
@@ -534,7 +534,7 @@ function _libhours_displayhours($open, $close, $prev = NULL, $next = NULL) {
     $r = 'Closed';
   }
   else {
-    $r = $openstr . ' - '. $closestr;
+    $r = $openstr . ' - ' . $closestr;
     if ($prev && $next) {
       if ($next['open'] == 0 && $next['close'] == 2359) {
         $r = $openstr . ' - Open';
