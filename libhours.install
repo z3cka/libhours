@@ -147,7 +147,7 @@ function libhours_schema() {
         'not null' => TRUE,
         'default' => '1111111'),
       'open' => array(
-        'description' => 'The hour the location opens. Open 24hours is when open is 0 and close is 2400. Close 24hours is when open and close are 0'),
+        'description' => 'The hour the location opens. Open 24hours is when open is 0 and close is 2400. Close 24hours is when open and close are 0',
         'type' => 'int',
         'not null' => TRUE,
         'unsigned' => TRUE),
@@ -195,7 +195,7 @@ function libhours_schema() {
         'not null' => TRUE,
         'unsigned' => TRUE),
       'open' => array(
-        'description' => 'The hour the location opens. Open 24hours is when open is 0 and close is 2400. Close 24hours is when open and close are 0'),
+        'description' => 'The hour the location opens. Open 24hours is when open is 0 and close is 2400. Close 24hours is when open and close are 0',
         'type' => 'int',
         'not null' => TRUE,
         'unsigned' => TRUE),
