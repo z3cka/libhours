@@ -6,37 +6,37 @@
  * @copyright 2011 University of Houston Libraries (http://info.lib.uh.edu)
  */
 
-.libhours-dow-checkboxes{
-    width: 100%;
-    display: inline-block;
+.libhours-dow-checkboxes {
+  display: inline-block;
+  width: 100%;
 }
-.libhours-dow-checkboxes .form-checkboxes{
-    float: left;
+.libhours-dow-checkboxes .form-checkboxes {
+  float: left;
 }
-.libhours-dow-checkboxes .form-checkboxes .form-option{
+.libhours-dow-checkboxes .form-checkboxes .form-option {
+  float: left;
   width: 100px;
-  float: left;
 }
-#libhours-content{
+#libhours-content {
   float: left;
-  width: 900px;
   padding-top: 10px;
+  width: 900px;
 }
-#libhours-locations{
+#libhours-locations {
   float: left;
-  width: 210px;
-  padding-right: 0px;
   margin-top: 55px;
+  padding-right: 0px;
+  width: 210px;
 }
-#libhours-locations #libhours-location-list{
+#libhours-locations #libhours-location-list {
+  cursor: pointer;
+  font-size: 15px;
   list-style: none;
   margin: 0;
   padding: 0;
   width: 205px;
-  font-size: 15px;
-  cursor: pointer;
 }
-#libhours-locations #libhours-location-list .libhours-location{
+#libhours-locations #libhours-location-list .libhours-location {
   line-height: 16px;
   width: 202px;
   height: 16px;
@@ -46,33 +46,33 @@
   text-overflow: ellipsis;
   white-space: none;
 }
-#libhours-locations #libhours-location-list .libhours-location:hover{
+#libhours-locations #libhours-location-list .libhours-location:hover {
   font-weight: bold;
 }
-#libhours-locations #libhours-location-list .libhours-location.selected{
+#libhours-locations #libhours-location-list .libhours-location.selected {
   color: #fff;
   text-shadow: 0 -1px 0 #000;
   background: url('img/libhours-location-arrow.png') no-repeat;
 }
-#libhours-locations #libhours-location-list .libhours-location.selected:hover{
+#libhours-locations #libhours-location-list .libhours-location.selected:hover {
   font-weight: normal;
 }
-#libhours-locations #libhours-location-list .libhours-location.libhours-child{
+#libhours-locations #libhours-location-list .libhours-location.libhours-child {
   width: 195px;
   padding-left: 15px;
 }
-#libhours-periods{
+#libhours-periods {
   float: left;
   width: 690px;
 }
-#libhours-periods-tabs{
+#libhours-periods-tabs {
   float: left;
   margin: 0 0 0 10px;
   padding: 0;
   list-style: none;
   cursor: pointer;
 }
-#libhours-periods-tabs li{
+#libhours-periods-tabs li {
   float: left;
   color: #000;
   width: 100px;
@@ -88,10 +88,10 @@
   border-top-left-radius: 3px;
   border-top-right-radius: 3px;
 }
-#libhours-periods-tabs li:hover{
+#libhours-periods-tabs li:hover {
   background-color: #EFEFEF;
 }
-#libhours-periods-tabs li.selected{
+#libhours-periods-tabs li.selected {
   color: #fff;
   text-shadow: 0px -1px 0px #990a00;
   font-weight: bold;
@@ -109,22 +109,22 @@
   background-image: -moz-linear-gradient(top, #c00c00, #990a00);
   -ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorStr='#c00c00', EndColorStr='#990a00')";
 }
-#libhours-periods-tabs li.selected:hover{
+#libhours-periods-tabs li.selected:hover {
   background-color: #c00;
 }
-#libhours-periods-tabs li .libhours-name{
+#libhours-periods-tabs li .libhours-name {
   text-transform: uppercase;
   text-align: center;
   font-size: .9em;
   font-weight: bold;
 }
-#libhours-periods-tabs li .libhours-daterange{
+#libhours-periods-tabs li .libhours-daterange {
   font-weight: normal;
   font-size: .9em;
   text-align: center;
   font-style: italic;
 }
-#libhours-periods .libhours-view{
+#libhours-periods .libhours-view {
   float: left;
   padding: 20px;
   width: 648px;
@@ -142,47 +142,47 @@
   border-radius: 5px;
   border-top-left-radius: 0;
 }
-#libhours-periods .libhours-view.selected{
+#libhours-periods .libhours-view.selected {
   display: inline;
 }
-#libhours-periods .libhours-stdhours{
+#libhours-periods .libhours-stdhours {
   float: left;
   width: 330px;
   min-height: 165px;
   font-family: Tahoma, Verdana, Arial, Helvetica, "Bitstream Vera Sans", sans-serif;
 }
-#libhours-periods .libhours-stdhours ul{
+#libhours-periods .libhours-stdhours ul {
   list-style: none;
   float: left;
   padding: 0;
   margin: 0;
 }
-#libhours-periods .libhours-stdhours .libhours-name{
+#libhours-periods .libhours-stdhours .libhours-name {
   font-weight: bold;
   font-size: 1.5em;
   padding: 5px 5px 5px 7px;
   background-color: #EFEFEF;
   color: #000;
 }
-#libhours-periods .libhours-stdhours .libhours-hour{
+#libhours-periods .libhours-stdhours .libhours-hour {
   float: left;
   width: 330px;
 }
-#libhours-periods .libhours-stdhours .libhours-hour .libhours-dow{
+#libhours-periods .libhours-stdhours .libhours-hour .libhours-dow {
   float: left;
   width: 129px;
   padding: 4px;
   font-weight: bold;
   font-size: 16px;
 }
-#libhours-periods .libhours-stdhours .libhours-hour .libhours-time{
+#libhours-periods .libhours-stdhours .libhours-hour .libhours-time {
   float: left;
   width: 177px;
   padding: 4px;
   font-size: 16px;
   color: #666;
 }
-#libhours-periods .libhours-exceptions{
+#libhours-periods .libhours-exceptions {
   float: right;
   width: 300px;
   min-height: 165px;
@@ -192,7 +192,7 @@
   border: 1px solid #999;
   background-color: #f9f9f9;
 }
-#libhours-periods .libhours-exceptions .libhours-name{
+#libhours-periods .libhours-exceptions .libhours-name {
   font-weight: normal;
   font-size: 18px;
   padding: 3px 3px 8px 13px;
@@ -200,32 +200,32 @@
   background-color: #999;
   color: #fff;
 }
-#libhours-periods .libhours-exceptions .libhours-hour{
+#libhours-periods .libhours-exceptions .libhours-hour {
   padding: 4px;
   font-size: 14px;
 }
-#libhours-periods .libhours-exceptions .libhours-hour ul{
+#libhours-periods .libhours-exceptions .libhours-hour ul {
   list-style: none;
   padding: 0;
   margin: 0;
 }
-#libhours-periods .libhours-exceptions .libhours-hour .libhours-label{
+#libhours-periods .libhours-exceptions .libhours-hour .libhours-label {
   width: 290px;
   font-weight: bold;
   text-transform: uppercase;
 }
-#libhours-periods .libhours-exceptions .libhours-hour .libhours-time{
+#libhours-periods .libhours-exceptions .libhours-hour .libhours-time {
   width: 280px;
   padding-left: 10px;
 }
-#libhours-periods .libhours-locationdescription{
+#libhours-periods .libhours-locationdescription {
   float: left;
   width: 640px;
   padding: 20px 10px 10px 10px;
   height: 20px;
   max-height: 20px;
 }
-#libhours-periods .libhours-disclaimer{
+#libhours-periods .libhours-disclaimer {
   float: left;
   width: 660px;
   padding-top: 10px;
