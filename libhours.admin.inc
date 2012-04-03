@@ -64,7 +64,8 @@ function libhours_admin_location_edit($lid = 0) {
  *
  * @see libhours_admin_location_form_submit()
  */
-function libhours_admin_location_form(&$form_state,
+function libhours_admin_location_form(
+  &$form_state,
   $location = array(
     'lid' => 0,
     'name' => '',
@@ -466,7 +467,8 @@ function libhours_admin_hours_edit($hid = 0) {
  * @see libhours_admin_hours_form_validate()
  * @see libhours_admin_hours_form_submit()
  */
-function libhours_admin_hours_form(&$form_state,
+function libhours_admin_hours_form(
+  &$form_state,
   $pid = 0,
   $hours = array(
     'hid' => 0,
@@ -743,7 +745,8 @@ function libhours_admin_exceptions_edit($lid = 0, $eid = 0) {
  * @see libhours_admin_exceptions_form_validate()
  * @see libhours_admin_exceptions_form_submit()
  */
-function libhours_admin_exceptions_form(&$form_state,
+function libhours_admin_exceptions_form(
+  &$form_state,
   $lid = 0,
   $exception = array(
     'eid' => 0,
