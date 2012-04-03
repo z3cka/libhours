@@ -19,7 +19,7 @@ function libhours_install() {
      overwrites or duplicates that can happen when enabling/disabling the
      module.
   */
-  if (!db_resuldb_query("SELECT COUNT(*) FROM {libhours_semesters} WHERE TRUE"))) {
+  if (!db_result(db_query("SELECT COUNT(*) FROM {libhours_semesters} WHERE TRUE"))) {
     db_query("INSERT INTO {libhours_semesters} (name) VALUES ('%s')", 'Fall');
     db_query("INSERT INTO {libhours_semesters} (name) VALUES ('%s')", 'Spring');
     db_query("INSERT INTO {libhours_semesters} (name) VALUES ('%s')", 'Summer');
@@ -29,7 +29,7 @@ function libhours_install() {
     db_query("INSERT INTO {libhours_semesters} (name) VALUES ('%s')", 'Intersession');
   }
 
-  if (!db_resuldb_query("SELECT COUNT(*) FROM {libhours_type} WHERE TRUE"))) {
+  if (!db_result(db_query("SELECT COUNT(*) FROM {libhours_type} WHERE TRUE"))) {
     db_query("INSERT INTO {libhours_type} (name) VALUES ('%s')", 'Holiday');
     db_query("INSERT INTO {libhours_type} (name) VALUES ('%s')", 'Emergency');
     db_query("INSERT INTO {libhours_type} (name) VALUES ('%s')", 'Unexpected');

@@ -90,7 +90,7 @@ function libhours_admin_location_form(&$form_state,
 
   $locs = array();
   $locs[0] = 'None';
-  $rs = db_query("SELECT lid, name FROM {libhours_locations} WHERE parent = %d AND lid != %d", 0, $location['lid']);
+  $rs = db_query("SELECT lid, name FROM {libhours_locations} WHERE parent = %d AND lid <> %d", 0, $location['lid']);
   while ($row = db_fetch_object($rs)) {
         $locs[$row->lid] = $row->name;
   }
@@ -625,7 +625,7 @@ function libhours_admin_hours_form_validate($form, &$form_state) {
   $form_state['values']['close'] = $close;
 
   /* ok lets look at the other hours in this period and make sure we don't conflict with anything */
-  $rs = db_query("SELECT * FROM {libhours_hours} WHERE pid=%d AND hid != %d", $form_state['values']['pid'], $hid);
+  $rs = db_query("SELECT * FROM {libhours_hours} WHERE pid=%d AND hid <> %d", $form_state['values']['pid'], $hid);
   while ($row = db_fetch_object($rs)) {
     $error_hours = _libhours_dowstring($row->dow) . ' / ' . _libhours_parsetime($row->open) . ' - ' . _libhours_parsetime($row->close);
 
@@ -896,7 +896,7 @@ function libhours_admin_exceptions_form_validate($form, &$form_state) {
   $form_state['values']['open'] = date('Hi', strtotime($form_state['values']['open']['hour'] . ':' . $form_state['values']['open']['minute'] . ' ' . $form_state['values']['open']['m'])) * 1;
   $form_state['values']['close'] = date('Hi', strtotime($form_state['values']['close']['hour'] . ':' . $form_state['values']['close']['minute'] . ' ' . $form_state['values']['close']['m'])) * 1;
 
-  $rs = db_query("SELECT * FROM {libhours_exceptions} WHERE lid=%d AND eid != %d", $form_state['values']['lid'], $eid);
+  $rs = db_query("SELECT * FROM {libhours_exceptions} WHERE lid=%d AND eid <> %d", $form_state['values']['lid'], $eid);
   while ($row = db_fetch_object($rs)) {
     /* check to see if the exception entered is during another exception date */
     if (($form_state['values']['from_date'] >= $row->from_date && $form_state['values']['from_date'] <= $row->to_date) || ($form_state['values']['to_date'] >= $row->from_date && $form_state['values']['to_date'] <= $row->to_date)) {
