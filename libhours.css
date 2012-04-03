@@ -73,13 +73,13 @@
   padding: 0;
 }
 #libhours-periods-tabs li {
-  color: #000;
   background-color: #f9f9f9;
   border-left: 1px solid #bababa;
   border-right: 1px solid #bababa;
   border-top: 1px solid #bababa;
   border-top-left-radius: 3px;
   border-top-right-radius: 3px;
+  color: #000;
   float: left;
   padding: 5px;
   width: 100px;
@@ -113,56 +113,56 @@
   background-color: #c00;
 }
 #libhours-periods-tabs li .libhours-name {
-  text-transform: uppercase;
-  text-align: center;
   font-size: .9em;
   font-weight: bold;
+  text-align: center;
+  text-transform: uppercase;
 }
 #libhours-periods-tabs li .libhours-daterange {
-  font-weight: normal;
   font-size: .9em;
-  text-align: center;
   font-style: italic;
+  font-weight: normal;
+  text-align: center;
 }
 #libhours-periods .libhours-view {
+  background-color: #fff;
+  border: 1px solid #990a00;
+  border-radius: 5px;
+  border-top-left-radius: 0;
+  box-shadow: 2px 2px .5em #d9d9d9;
+  display: none;
   float: left;
+  min-height: 275px;
   padding: 20px;
   width: 648px;
-  min-height: 275px;
-  border: 1px solid #990a00;
-  display: none;
-  background-color: #fff;
-  box-shadow: 2px 2px .5em #d9d9d9;
-  -webkit-box-shadow: 2px 2px .5em #d9d9d9;
+  -moz-border-radius: 5px;
+  -moz-border-radius-topleft: 0;
   -moz-box-shadow: 2px 2px .5em #d9d9d9;
   -webkit-border-radius: 5px;
   -webkit-border-top-left-radius: 0;
-  -moz-border-radius: 5px;
-  -moz-border-radius-topleft: 0;
-  border-radius: 5px;
-  border-top-left-radius: 0;
+  -webkit-box-shadow: 2px 2px .5em #d9d9d9;
 }
 #libhours-periods .libhours-view.selected {
   display: inline;
 }
 #libhours-periods .libhours-stdhours {
   float: left;
-  width: 330px;
-  min-height: 165px;
   font-family: Tahoma, Verdana, Arial, Helvetica, "Bitstream Vera Sans", sans-serif;
+  min-height: 165px;
+  width: 330px;
 }
 #libhours-periods .libhours-stdhours ul {
   list-style: none;
   float: left;
-  padding: 0;
   margin: 0;
+  padding: 0;
 }
 #libhours-periods .libhours-stdhours .libhours-name {
-  font-weight: bold;
-  font-size: 1.5em;
-  padding: 5px 5px 5px 7px;
   background-color: #efefef;
   color: #000;
+  font-size: 1.5em;
+  font-weight: bold;
+  padding: 5px 5px 5px 7px;
 }
 #libhours-periods .libhours-stdhours .libhours-hour {
   float: left;
@@ -170,66 +170,66 @@
 }
 #libhours-periods .libhours-stdhours .libhours-hour .libhours-dow {
   float: left;
-  width: 129px;
-  padding: 4px;
-  font-weight: bold;
   font-size: 16px;
+  font-weight: bold;
+  padding: 4px;
+  width: 129px;
 }
 #libhours-periods .libhours-stdhours .libhours-hour .libhours-time {
-  float: left;
-  width: 177px;
-  padding: 4px;
-  font-size: 16px;
   color: #666;
+  float: left;
+  font-size: 16px;
+  padding: 4px;
+  width: 177px;
 }
 #libhours-periods .libhours-exceptions {
-  float: right;
-  width: 300px;
-  min-height: 165px;
+  background-color: #f9f9f9;
+  border: 1px solid #999;
   color: #333;
+  float: right;
   font-family: Tahoma, Verdana, Arial, Helvetica, "Bitstream Vera Sans", sans-serif;
   line-height: 1.5em;
-  border: 1px solid #999;
-  background-color: #f9f9f9;
+  min-height: 165px;
+  width: 300px;
 }
 #libhours-periods .libhours-exceptions .libhours-name {
-  font-weight: normal;
-  font-size: 18px;
-  padding: 3px 3px 8px 13px;
-  margin-bottom: 15px;
   background-color: #999;
   color: #fff;
+  font-size: 18px;
+  font-weight: normal;
+  margin-bottom: 15px;
+  padding: 3px 3px 8px 13px;
 }
 #libhours-periods .libhours-exceptions .libhours-hour {
-  padding: 4px;
   font-size: 14px;
+  padding: 4px;
 }
 #libhours-periods .libhours-exceptions .libhours-hour ul {
   list-style: none;
-  padding: 0;
   margin: 0;
+  padding: 0;
 }
 #libhours-periods .libhours-exceptions .libhours-hour .libhours-label {
-  width: 290px;
   font-weight: bold;
   text-transform: uppercase;
+  width: 290px;
 }
 #libhours-periods .libhours-exceptions .libhours-hour .libhours-time {
-  width: 280px;
   padding-left: 10px;
+  width: 280px;
 }
 #libhours-periods .libhours-locationdescription {
   float: left;
-  width: 640px;
-  padding: 20px 10px 10px 10px;
   height: 20px;
   max-height: 20px;
+  padding: 20px 10px 10px 10px;
+  width: 640px;
 }
 #libhours-periods .libhours-disclaimer {
-  float: left;
-  width: 660px;
-  padding-top: 10px;
-  font-size: 12px;
-  bottom: 0px;
   border-top: 1px solid #000;
+  bottom: 0px;
+  float: left;
+  font-size: 12px;
+  padding-top: 10px;
+  width: 660px;
 }
