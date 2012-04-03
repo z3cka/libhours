@@ -860,7 +860,7 @@ function libhours_admin_exceptions_form(&$form_state,
     $form['submit'] = array(
       '#type' => 'submit',
       '#value' => t('Save Exception'),
-    );  
+    );
   }
   else {
     $form['submit'] = array(
