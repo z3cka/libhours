@@ -152,8 +152,8 @@
   width: 330px;
 }
 #libhours-periods .libhours-stdhours ul {
-  list-style: none;
   float: left;
+  list-style: none;
   margin: 0;
   padding: 0;
 }
