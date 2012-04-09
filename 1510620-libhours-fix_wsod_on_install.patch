@@ -1,0 +1,13 @@
+diff --git a/libhours.install b/libhours.install
+index 4dc1e0c..ec5c380 100644
+--- a/libhours.install
++++ b/libhours.install
+@@ -78,7 +78,7 @@ function libhours_schema() {
+   );
+ 
+   $schema['libhours_periods'] = array(
+-    'description' => 'Location periods'),
++    'description' => 'Location periods',
+     'fields' => array(
+       'pid' => array(
+         'description' => 'unique identifier for periods',
