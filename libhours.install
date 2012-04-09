@@ -78,7 +78,7 @@ function libhours_schema() {
   );
 
   $schema['libhours_periods'] = array(
-    'description' => 'Location periods'),
+    'description' => 'Location periods',
     'fields' => array(
       'pid' => array(
         'description' => 'unique identifier for periods',
